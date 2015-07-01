@@ -25,36 +25,44 @@ exports.initialize = function(pathsObj){
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
 
-exports.readListOfUrls = function(){
-  var returnData = fs.readFileSync(exports.paths.list).toString();
-  return returnData;
+exports.readListOfUrls = function(cb){
+  fs.readFile(exports.paths.list, function(err, data){
+    err ? console.log(err) : cb(data.toString().split('\n'));
+  });
 };
 
-exports.isUrlInList = function(url){
-  var fileData = exports.readListOfUrls();
-  return fileData.indexOf(url) === -1 ? false : true;
+exports.isUrlInList = function(url, cb){
+  fs.readFile(exports.paths.list, function(err, data){
+    if(err) console.log(err);
+    else{
+      data.toString().split('\n').indexOf(url) === -1 ? cb(false) : cb(true);
+    }
+  });
 };
 
-exports.addUrlToList = function(url){
-  var fileData = exports.readListOfUrls();
-  var fileAdded = false;
-
-  if (fileData.indexOf(url) === -1) {
-    fs.appendFile(exports.paths.list, url, function(err) {
-      if (err) console.log(err);
-      else{
-        fileAdded = true;
+exports.addUrlToList = function(url, cb){
+  // grab the list and have access to it
+  fs.readFile(exports.paths.list, function(err, data){
+    if(err) console.log(err);
+    else{
+    // check the list for the url and run the cb
+      if (data.toString().split('\n').indexOf(url) === -1){
+        fs.appendFile(exports.paths.list, url, function(err) {
+          err ? cb(false) : cb(true)
+        })
       }
-    })
-  }
-
-  return fileAdded;
+    }
+  })
 };
 
-exports.isUrlArchived = function(url){
-  var filesArray = fs.readdirSync(exports.paths.archivedSites)
-  return filesArray.indexOf(url) === -1 ? false : true
+exports.isUrlArchived = function(url, cb){
+  fs.readdir(exports.paths.archivedSites, function(err, data){
+    err ? console.log(err) :
+      (data.toString().split('\n').indexOf(url) === -1) ? cb(false) : cb(true);
+  });
 };
 
-exports.downloadUrls = function(){
+exports.downloadUrls = function(urlArray){
+  // AJAX GET request to pull html from 'url' server
+    //save HTML to /sites/
 };
