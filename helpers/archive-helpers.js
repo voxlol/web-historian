@@ -26,15 +26,34 @@ exports.initialize = function(pathsObj){
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(){
+  var returnData = fs.readFileSync(exports.paths.list).toString();
+  return returnData;
 };
 
-exports.isUrlInList = function(){
+exports.isUrlInList = function(url){
+  var fileData = exports.readListOfUrls();
+  return fileData.indexOf(url) === -1 ? false : true;
 };
 
-exports.addUrlToList = function(){
+exports.addUrlToList = function(url){
+  var fileData = exports.readListOfUrls();
+  var fileAdded = false;
+
+  if (fileData.indexOf(url) === -1) {
+    fs.appendFile(exports.paths.list, url, function(err) {
+      if (err) console.log(err);
+      else{
+        fileAdded = true;
+      }
+    })
+  }
+
+  return fileAdded;
 };
 
-exports.isUrlArchived = function(){
+exports.isUrlArchived = function(url){
+  var filesArray = fs.readdirSync(exports.paths.archivedSites)
+  return filesArray.indexOf(url) === -1 ? false : true
 };
 
 exports.downloadUrls = function(){
