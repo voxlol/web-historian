@@ -57,9 +57,9 @@ exports.addUrlToList = function(url, cb){
 
 exports.isUrlArchived = function(url, cb){
   fs.readdir(exports.paths.archivedSites, function(err, data){
-    console.log(data.toString().split(','));
-    console.log('url : ' + url);
-    console.log('indexOf : ' + data.toString().split(',').indexOf(url))
+    // console.log(data.toString().split(','));
+    // console.log('url : ' + url);
+    // console.log('indexOf : ' + data.toString().split(',').indexOf(url))
     err ? console.log(err) :
       (data.toString().split(',').indexOf(url) === -1) ? cb(false) : cb(true);
   });
