@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="styles.css" /> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 <body>
   Enter a URL here:
   <form method="POST">
     <input type="input" name="url"></input>
   </form>
+
+  Get a URL here:
+  <input id="url" type="text" name="url" onkeydown="if(event.keyCode == 13) { var url = $(this).val();
+    console.log(url);
+    window.location = 'http://localhost:8080/'+ url;  } "></input>
+  <input id="go" type="submit"></input>
+
+  <script>
+  $('#go').on('click', function(){
+    var url = $('#url').val();
+    console.log(url);
+    window.location = 'http://localhost:8080/'+ url;
+  });
+  </script>
 </body>
 </html>

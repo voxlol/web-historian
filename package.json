@@ -6,6 +6,7 @@
   "license": "Copyright 2014, Hack Reactor. All rights reserved.",
   "dependencies": {
     "http-request": "^0.7.0",
+    "node-crontab": "0.0.8",
     "node-static": "^0.7.6"
   },
   "devDependencies": {

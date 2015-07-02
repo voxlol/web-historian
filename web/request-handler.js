@@ -44,8 +44,12 @@ var actions = {
               res.writeHead(500, httpHelpers.headers)
               res.end('Append error');
             }else{
+              // serve the loading screen
               res.writeHead(302, httpHelpers.headers);
-              res.end(url + " appended.");
+              // res.end(url + " appended. Check back in a minute to view archived site.");
+              var asset = archive.paths.siteAssets+'/loading.html';
+              httpHelpers.serveAssets(res,asset)
+              // res.end(archive.paths.);
             }
           });
         }
