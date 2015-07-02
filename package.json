@@ -5,6 +5,7 @@
   "author": "Hack Reactor",
   "license": "Copyright 2014, Hack Reactor. All rights reserved.",
   "dependencies": {
+    "http-request": "^0.7.0",
     "node-static": "^0.7.6"
   },
   "devDependencies": {
